@@ -71,9 +71,36 @@ class SignUp
 
 
 //class for creating account
-class CreateAccount
+class CreateAccount 
 {
+    private static Scanner scanner = new Scanner(System.in);
+    private static List<SignUp> accountStorage = new ArrayList<>();
+    static int userID = 1000;
     
+    
+    //methods to create account
+    public static void createAccount()
+    {
+        String userPassword;
+        
+        System.out.print("Enter your name: ");
+        String userName = scanner.nextLine();
+        
+        do
+        {
+            System.out.print("Enter your password: ");
+            userPassword = scanner.nextLine();
+        } while(userPassword.length() < 8);
+        
+        userID++;
+        
+        System.out.println("Your user ID is " + userID);
+        
+        SignUp storeData = new SignUp(userName, userPassword, userID);
+        accountStorage.add(storeData);
+        
+        System.out.println("Your account was created successfully!");
+    }
 }
 
 
@@ -163,15 +190,22 @@ public class OnlineShoppingSystem
                                         switch(userChoice)
                                         {
                                             case 1:
+                                                //show products
+                                                //add to cart
+                                                //buy
+                                                //exit
                                                 break;
 
                                             case 2:
+                                                //show cart
                                                 break;
 
                                             case 3:
+                                                //remove cart
                                                 break;
 
                                             case 4:
+                                                //log out
                                                 isUserProgramRunning = false;
                                                 break;
 
@@ -204,9 +238,12 @@ public class OnlineShoppingSystem
 
 
                 case 2:
+                    //create account
+                    CreateAccount.createAccount();
                     break;
 
                 case 3:
+                    //exit the program
                     isSubProgramRunning = false;
                     break;
 
