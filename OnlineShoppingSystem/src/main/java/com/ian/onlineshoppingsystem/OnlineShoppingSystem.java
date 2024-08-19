@@ -146,20 +146,20 @@ public class OnlineShoppingSystem
             
             switch(signing)
             {
-                case 1:
-                    System.out.println("Hi! Welcome to IShop!");
-                    System.out.println("");
-                    System.out.println("[1] User as buyer");
-                    System.out.println("[2] User as seller");
-                    System.out.println("[3] Back");
-
-                    System.out.println("");
-                    System.out.print("Enter your choice: ");
-                    int choice = scanner.nextInt();
-                    scanner.nextLine();  //consume newline
-
+                case 1:                  
                     while(isLogInRunning)
                     {
+                        System.out.println("Hi! Welcome to IShop!");
+                        System.out.println("");
+                        System.out.println("[1] User as buyer");
+                        System.out.println("[2] User as seller");
+                        System.out.println("[3] Back");
+
+                        System.out.println("");
+                        System.out.print("Enter your choice: ");
+                        int choice = scanner.nextInt();
+                        scanner.nextLine();  //consume newline
+
                         switch(choice)
                         {
                             case 1:
