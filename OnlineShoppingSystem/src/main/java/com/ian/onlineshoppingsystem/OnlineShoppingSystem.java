@@ -70,11 +70,44 @@ class SignUp
 
 
 
+//encapsulate the data for the seller 
+class Product
+{
+    private String name;
+    private String type;
+    private float price;
+    
+    public Product(String name, String type, float price)
+    {
+        this.name = name;
+        this.price = price;
+        this.type = type;
+    }
+    
+    
+    public String getName() {
+        return name;
+    }
+    
+    public String getType() {
+        return type;
+    }   
+    
+    public float getPrice() {
+        return price;
+    }
+}
+
+
+
+
+
+
 //class for creating account
 class CreateAccount 
 {
     private static Scanner scanner = new Scanner(System.in);
-    private static List<SignUp> accountStorage = new ArrayList<>();
+    public static List<SignUp> accountStorage = new ArrayList<>();
     static int userID = 1000;
     
     
@@ -102,6 +135,66 @@ class CreateAccount
         System.out.println("Your account was created successfully!");
     }
 }
+
+
+
+
+
+
+
+
+
+
+//class for user functions
+class UserClass
+{
+    
+}
+
+
+
+//class for seller functions
+class SellerClass
+{
+    private static final Scanner scanner = new Scanner(System.in);
+    public static List<Product> productStorage = new ArrayList<>();
+    static int productID = 9000;
+    
+    
+    
+    //method to add product
+    public static void addProduct()
+    {
+        System.out.print("Enter product name: ");
+        String productName = scanner.nextLine();
+        
+        System.out.print("Enter product type: ");
+        String productType = scanner.nextLine();
+        
+        System.out.print("Enter product price: ");
+        float productPrice = scanner.nextFloat();
+        
+        System.out.println("Product ID: " + productID++);
+        
+        Product addProduct = new Product(productName, productType, productPrice);
+        productStorage.add(addProduct);
+        
+        System.out.println("Product added to the market successfully!");
+        
+        
+    }
+    
+    
+    //method to view product status 
+    
+    
+    
+    
+}
+
+
+
+
 
 
 
@@ -172,57 +265,69 @@ public class OnlineShoppingSystem
 
                                 System.out.print("Enter password: ");
                                 String userPassword = scanner.nextLine();
-
-                                if(userPassword == PASSWORD && userID == ID)
+                                
+                                for(SignUp copy : CreateAccount.accountStorage)
                                 {
-                                    while(isUserProgramRunning)
+                                    if(userID == copy.getId() && userPassword == copy.getPassword())
                                     {
-                                        System.out.println("Welcome to IShop, Enjoy your shopping!");
-                                        System.out.println("[1] Shop");
-                                        System.out.println("[2] Show the cart");
-                                        System.out.println("[3] Remove to cart");
-                                        System.out.println("[4] Log out");
-
-                                        System.out.println("");
-                                        System.out.print("Enter your choices: ");
-                                        int userChoice = scanner.nextInt();
-
-                                        switch(userChoice)
+                                        while(isUserProgramRunning)
                                         {
-                                            case 1:
+                                            System.out.println("Welcome to IShop, Enjoy your shopping!");
+                                            System.out.println("[1] Shop");
+                                            System.out.println("[2] Show the cart");
+                                            System.out.println("[3] Remove to cart");
+                                            System.out.println("[4] Log out");
+
+                                            System.out.println("");
+                                            System.out.print("Enter your choices: ");
+                                            int userChoice = scanner.nextInt();
+                                            
+                                            switch(userChoice)
+                                            {
+                                                case 1:
                                                 //show products
                                                 //add to cart
                                                 //buy
                                                 //exit
                                                 break;
 
-                                            case 2:
-                                                //show cart
-                                                break;
+                                                case 2:
+                                                    //show cart
+                                                    break;
 
-                                            case 3:
-                                                //remove cart
-                                                break;
+                                                case 3:
+                                                    //remove cart
+                                                    break;
 
-                                            case 4:
-                                                //log out
-                                                isUserProgramRunning = false;
-                                                break;
+                                                case 4:
+                                                    //log out
+                                                    isUserProgramRunning = false;
+                                                    break;
 
-                                            default:
-                                                System.out.println("Invalid choice, try again.");
-                                                break;
+                                                default:
+                                                    System.out.println("Invalid choice, try again.");
+                                                    break;
+                                            }
                                         }
+                                                
+                                    }
+                                    else 
+                                    {
+                                        System.out.println("Incorrect credentials, try again");
                                     }
                                 }
-                                else 
-                                {
-                                    System.out.println("Incorrect credentials, try again");
-                                }
-
+                            
                                 break;
 
                             case 2:
+                                //view product status
+                                //add product
+                                    //name
+                                    //type 
+                                    //price
+                                //remove product
+                                //view net income
+                                //logout
                                 break;
 
                             case 3:
