@@ -17,6 +17,7 @@ interface Register
 
 
 
+
 interface User 
 {
     void shoppingMethod();
@@ -76,12 +77,14 @@ class Product
     private String name;
     private String type;
     private float price;
+    private int id;
     
-    public Product(String name, String type, float price)
+    public Product(String name, String type, float price, int id)
     {
         this.name = name;
         this.price = price;
         this.type = type;
+        this.id = id;
     }
     
     
@@ -96,6 +99,19 @@ class Product
     public float getPrice() {
         return price;
     }
+    
+    public int getID() {
+        return id;
+    }
+    
+    
+    @Override
+    public String toString()
+    {
+        return "Hello";
+    }
+
+    
 }
 
 
@@ -176,7 +192,7 @@ class SellerClass
         
         System.out.println("Product ID: " + productID++);
         
-        Product addProduct = new Product(productName, productType, productPrice);
+        Product addProduct = new Product(productName, productType, productPrice, productID);
         productStorage.add(addProduct);
         
         System.out.println("Product added to the market successfully!");
@@ -185,7 +201,58 @@ class SellerClass
     }
     
     
+    
+    
     //method to view product status 
+    public static void viewProduct()
+    {
+        if(productStorage.isEmpty())
+        {
+            System.out.println("No products available");
+        }
+        
+        
+        for(Product copy : productStorage)
+        {
+            System.out.println(copy);
+        }            
+        
+    }
+    
+    
+    
+    
+    //methods to remove product 
+    public static void removeProduct()
+    {
+        if(productStorage.isEmpty())
+        {
+            System.out.println("No products available");
+        }
+        
+        System.out.print("Enter product ID to remove: ");
+        int removeID = scanner.nextInt();
+        
+        for(Product copy : productStorage)
+        {
+            if(removeID == copy.getID())
+            {
+                productStorage.remove(copy);
+            }
+        }
+        
+        
+        System.out.println("Products removed successfully");
+    }
+    
+    
+    
+    
+    //
+    public static void incomeProduct()
+    {
+        
+    }
     
     
     
