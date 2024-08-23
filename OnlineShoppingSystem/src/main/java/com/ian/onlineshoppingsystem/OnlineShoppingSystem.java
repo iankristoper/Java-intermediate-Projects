@@ -116,13 +116,10 @@ class Product
 
 
 
-
-
-
 //class for creating account
 class CreateAccount 
 {
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
     public static List<SignUp> accountStorage = new ArrayList<>();
     static int userID = 1000;
     
@@ -154,7 +151,7 @@ class CreateAccount
 
 
 
-
+class
 
 
 
@@ -164,7 +161,27 @@ class CreateAccount
 //class for user functions
 class UserClass
 {
+    private static final Scanner scanner = new Scanner(System.in);
+    public static List<Product> productStorage = new ArrayList<>();
     
+    
+    //inner class for shopping methods of the buyer
+    class ShopProduct
+    {
+        public static void showSellerProducts()
+        {
+            if(productStorage.isEmpty())
+            {
+                System.out.println("There is no available product on the market");
+            }
+            
+            //display the productStorage content
+            for(Product copy : productStorage)
+            {
+                System.out.println(copy);
+            }
+        }
+    }
 }
 
 
@@ -203,7 +220,7 @@ class SellerClass
     
     
     
-    //method to view product status 
+    //method to view product status of the seller 
     public static void viewProduct()
     {
         if(productStorage.isEmpty())
@@ -222,7 +239,7 @@ class SellerClass
     
     
     
-    //methods to remove product 
+    //methods to remove product of hhe seller
     public static void removeProduct()
     {
         if(productStorage.isEmpty())
@@ -248,30 +265,16 @@ class SellerClass
     
     
     
-    //
+    //this method is for viewing the income of the seller
     public static void incomeProduct()
     {
         
     }
     
-    
-    
-    
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+//MAIN CLASS HERE
 
 
 public class OnlineShoppingSystem 
