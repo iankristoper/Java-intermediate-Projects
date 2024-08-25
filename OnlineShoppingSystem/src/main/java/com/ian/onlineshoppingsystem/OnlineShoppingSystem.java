@@ -44,6 +44,7 @@ class SignUp
     private String name;
     private String password;
     private int id;
+    private static float income;
     
     
     //constructor for initialization
@@ -151,23 +152,45 @@ class CreateAccount
 
 
 
-class
-
-
-
+//this class is for the cart of the buyer 
+class Cart
+{
+    private int productID;
+    private String productName;
+    
+    public Cart(int productID, String productName)
+    {
+        this.productID = productID;
+        this.productName = productName;
+    }
+    
+    
+    //getters 
+    public int getProductID() {
+        return productID;
+    }
+    
+    public String getProductName() {
+        return productName;
+    }
+               
+}
 
 
 
 //class for user functions
-class UserClass
+class BuyerClass
 {
     private static final Scanner scanner = new Scanner(System.in);
     public static List<Product> productStorage = new ArrayList<>();
+    public static List<Cart> cartStorage = new ArrayList<>();
     
     
     //inner class for shopping methods of the buyer
     class ShopProduct
     {
+        
+        //this methods is to show products from the seller 
         public static void showSellerProducts()
         {
             if(productStorage.isEmpty())
@@ -181,6 +204,60 @@ class UserClass
                 System.out.println(copy);
             }
         }
+        
+        
+        //methods for adding to cart 
+        public static void addToCart()
+        {
+            System.out.print("Enter product ID: ");
+            int productID = scanner.nextInt();
+            
+            System.out.print("Enter product name: ");
+            String productName = scanner.nextLine();
+            
+            Cart cart = new Cart(productID, productName);
+            cartStorage.add(cart);
+            
+            System.out.println("Product added to cart successfully");
+
+        }
+        
+        
+        //methods for buying the seller products 
+        public static void buyProduct()
+        {
+            boolean isIdValid = true;          
+            
+            while(isIdValid)
+            {
+                System.out.print("Enter product ID: ");
+                int productID = scanner.nextInt();              
+
+                System.out.print("Enter product name: ");
+                String productName = scanner.nextLine();
+
+                System.out.print("Enter price: ");
+                int productPrice = scanner.nextInt();
+
+
+                for(Product copy : productStorage)
+                {
+                    if(productID == copy.getID())
+                    {
+                        productStorage.remove(copy);
+                        System.out.println("Product purchased successfully!");
+                        return;
+                    }
+                }
+
+                System.out.println("Invalid ID, nowhere to find");
+            }
+                  
+        }
+        
+        
+        public 
+        
     }
 }
 
@@ -191,7 +268,8 @@ class SellerClass
 {
     private static final Scanner scanner = new Scanner(System.in);
     public static List<Product> productStorage = new ArrayList<>();
-    static int productID = 9000;
+    public static int productID = 9000;
+    public static float sellerIncome = 0;
     
     
     
@@ -213,11 +291,9 @@ class SellerClass
         productStorage.add(addProduct);
         
         System.out.println("Product added to the market successfully!");
-        
-        
+               
     }
-    
-    
+      
     
     
     //method to view product status of the seller 
@@ -237,11 +313,11 @@ class SellerClass
     }
     
     
-    
-    
+        
     //methods to remove product of hhe seller
     public static void removeProduct()
     {
+        //check if the product is not empty
         if(productStorage.isEmpty())
         {
             System.out.println("No products available");
@@ -263,8 +339,7 @@ class SellerClass
     }
     
     
-    
-    
+     
     //this method is for viewing the income of the seller
     public static void incomeProduct()
     {
@@ -314,8 +389,8 @@ public class OnlineShoppingSystem
                     {
                         System.out.println("Hi! Welcome to IShop!");
                         System.out.println("");
-                        System.out.println("[1] User as buyer");
-                        System.out.println("[2] User as seller");
+                        System.out.println("[1] Buyer");
+                        System.out.println("[2] Seller");
                         System.out.println("[3] Back");
 
                         System.out.println("");
@@ -355,18 +430,15 @@ public class OnlineShoppingSystem
                                             switch(userChoice)
                                             {
                                                 case 1:
-                                                //show products
-                                                //add to cart
-                                                //buy
-                                                //exit
-                                                break;
+                                                    BuyerClass.ShopProduct.buyProduct();
+                                                    break;                                                                             
 
                                                 case 2:
-                                                    //show cart
+                                                    BuyerClass.ShopProduct.addToCart();
                                                     break;
 
                                                 case 3:
-                                                    //remove cart
+                                                    BuyerClass.ShopProduct.
                                                     break;
 
                                                 case 4:
