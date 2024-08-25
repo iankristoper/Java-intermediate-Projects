@@ -39,16 +39,15 @@ interface Seller
         
 
 //encapsulate the data of the user and seller for signing up
-class SignUp
+class BuyerSignUp
 {
     private String name;
     private String password;
     private int id;
-    private static float income;
     
     
     //constructor for initialization
-    public SignUp(String name, String password, int id)
+    public BuyerSignUp(String name, String password, int id)
     {
         this.name = name;
         this.password = password;
@@ -68,6 +67,44 @@ class SignUp
     public int getId() {
         return id;
     }
+}
+
+
+
+class SellerSignUp
+{
+    private String name;
+    private String password;
+    private int id;
+    private float income;
+    
+    
+    //constructor for initialization when the class is declared 
+    public SellerSignUp(String name, String password, int id, float income)
+    {
+        this.name = name;
+        this.password = password;
+        this.id = id;
+        this.income = income;
+    }
+    
+    
+    //getters
+    public String getName() {
+        return name;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
+    
+    public int getID() {
+        return id;
+    }
+    
+    public float getIncome() {
+        return income;
+    }          
 }
 
 
@@ -117,40 +154,6 @@ class Product
 
 
 
-//class for creating account
-class CreateAccount 
-{
-    private static final Scanner scanner = new Scanner(System.in);
-    public static List<SignUp> accountStorage = new ArrayList<>();
-    static int userID = 1000;
-    
-    
-    //methods to create account
-    public static void createAccount()
-    {
-        String userPassword;
-        
-        System.out.print("Enter your name: ");
-        String userName = scanner.nextLine();
-        
-        do
-        {
-            System.out.print("Enter your password: ");
-            userPassword = scanner.nextLine();
-        } while(userPassword.length() < 8);
-        
-        userID++;
-        
-        System.out.println("Your user ID is " + userID);
-        
-        SignUp storeData = new SignUp(userName, userPassword, userID);
-        accountStorage.add(storeData);
-        
-        System.out.println("Your account was created successfully!");
-    }
-}
-
-
 
 //this class is for the cart of the buyer 
 class Cart
@@ -174,6 +177,109 @@ class Cart
         return productName;
     }
                
+}
+
+
+class Income
+{
+    private int id;
+    private float income;
+    
+    public Income(int id, float income)
+    {
+        this.id = id;
+        this.income = income;
+    }
+    
+    
+    //getters 
+    public int getID() {
+        return id;
+    }
+    
+    public float getIncome() {
+        return income;
+    }   
+    
+}
+    
+
+
+//class for creating account
+class BuyerAccount 
+{
+    private static final Scanner scanner = new Scanner(System.in);
+    public static List<BuyerSignUp> buyerAccountStorage = new ArrayList<>();
+    static int buyerID = 1000;
+    
+    
+    //methods to create account
+    public static void createBuyerAccount()
+    {
+        String buyerPassword;
+        
+        System.out.print("Enter your name: ");
+        String buyerName = scanner.nextLine();
+        
+        do
+        {
+            System.out.print("Enter your password: ");
+            buyerPassword = scanner.nextLine();
+        } while(buyerPassword.length() < 8);
+        
+        buyerID++;
+        
+        System.out.println("Your buyer ID is " + buyerID);
+        
+        BuyerSignUp storeData = new BuyerSignUp(buyerName, buyerPassword, buyerID);
+        buyerAccountStorage.add(storeData);
+        
+        System.out.println("Your account was created successfully!");
+    }
+}
+
+
+
+class SellerAccount
+{
+    private static Scanner scanner = new Scanner(System.in);
+    public static List<SellerSignUp> sellerAccountStorage = new ArrayList<>();
+    static int sellerID = 2000;
+    
+    
+    //methods to create the seller account
+    public static void createSellerAccount()
+    {
+        String sellerPassword;
+        
+        System.out.print("Enter your name: ");
+        String sellerName = scanner.nextLine();
+        
+        do 
+        {
+            System.out.print("Enter your password: ");
+            sellerPassword = scanner.nextLine();
+            
+            System.out.print("Confirm your password: ");
+            String confirmPassword = scanner.nextLine();
+            
+            if(confirmPassword.matches(sellerPassword))
+            {
+                System.out.println("Password Confirmed!");
+                break;
+            }
+            
+            
+            
+            
+        } while();
+    }
+    
+    
+    
+    
+    
+    
 }
 
 
@@ -256,7 +362,7 @@ class BuyerClass
         }
         
         
-        public 
+        
         
     }
 }
@@ -268,6 +374,7 @@ class SellerClass
 {
     private static final Scanner scanner = new Scanner(System.in);
     public static List<Product> productStorage = new ArrayList<>();
+    public static List<Income> incomeStorage = new ArrayList<>();
     public static int productID = 9000;
     public static float sellerIncome = 0;
     
