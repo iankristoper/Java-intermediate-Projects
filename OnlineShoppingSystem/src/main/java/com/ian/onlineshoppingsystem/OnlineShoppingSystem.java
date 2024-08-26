@@ -250,29 +250,66 @@ class SellerAccount
     //methods to create the seller account
     public static void createSellerAccount()
     {
-        String sellerPassword;
+        String sellerPassword = null;
+        boolean isPasswordLengthOkay = true;
+        
         
         System.out.print("Enter your name: ");
         String sellerName = scanner.nextLine();
         
         do 
         {
-            System.out.print("Enter your password: ");
-            sellerPassword = scanner.nextLine();
+            boolean isPasswordMatch = true;
             
-            System.out.print("Confirm your password: ");
-            String confirmPassword = scanner.nextLine();
             
-            if(confirmPassword.matches(sellerPassword))
+            
+            while(isPasswordMatch)
             {
-                System.out.println("Password Confirmed!");
-                break;
+                System.out.print("Enter your password: ");
+                sellerPassword = scanner.nextLine();
+
+                System.out.print("Confirm your password: ");
+                String confirmPassword = scanner.nextLine();
+
+                if(confirmPassword.matches(sellerPassword))
+                {
+                    System.out.println("Password Confirmed!");
+                    isPasswordMatch = false;
+                    break;
+                    
+                }
+                else
+                {
+                    System.out.println("Mismatch password, try again!");
+                }
             }
             
             
-            
-            
-        } while();
+           
+            if(sellerPassword.length() >= 8)
+            {
+                System.out.println("Password length is valid");
+                isPasswordLengthOkay = false;
+                break;
+                
+            }
+            else
+            {
+                System.out.println("Invalid password length make it 8 characters above");
+                isPasswordMatch = true;
+            }
+                   
+                       
+        } while(isPasswordLengthOkay);
+        
+        
+        
+        sellerID++;
+        System.out.println("Your seller id is: " + sellerID);
+        
+        SellerSignUp sellerData = new SellerSignUp(sellerName, sellerPassword, sellerID, )
+        
+        
     }
     
     
