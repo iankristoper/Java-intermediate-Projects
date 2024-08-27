@@ -10,12 +10,6 @@ import java.util.ArrayList;
 
 
 
-interface Register
-{
-    
-}
-
-
 
 
 interface User 
@@ -80,14 +74,18 @@ class SellerSignUp
     
     
     //constructor for initialization when the class is declared 
-    public SellerSignUp(String name, String password, int id, float income)
+    public SellerSignUp(String name, String password, int id)
     {
         this.name = name;
         this.password = password;
         this.id = id;
-        this.income = income;
     }
     
+    
+    //setter for seller income
+    public void setIncome(float income) {
+        this.income = income;
+    }
     
     //getters
     public String getName() {
@@ -327,6 +325,7 @@ class BuyerClass
     private static final Scanner scanner = new Scanner(System.in);
     public static List<Product> productStorage = new ArrayList<>();
     public static List<Cart> cartStorage = new ArrayList<>();
+    public static List<SellerSignUp> sellerAccountStorage = new ArrayList<>();
     
     
     //inner class for shopping methods of the buyer
@@ -379,8 +378,27 @@ class BuyerClass
                 System.out.print("Enter product name: ");
                 String productName = scanner.nextLine();
 
-                System.out.print("Enter price: ");
-                int productPrice = scanner.nextInt();
+                System.out.println("");
+                System.out.println("Payment Process");
+                System.out.print("Enter payment price: ");
+                float productPrice = scanner.nextInt();
+                
+                System.out.println("Enter seller ID: ");
+                int sellerID = scanner.nextInt();
+                
+                
+                for(SellerSignUp copy : sellerAccountStorage)
+                {
+                    if(sellerID == copy.getID())
+                    {
+                        copy.setIncome(productPrice);
+                        System.out.println("Payment added successfully");
+                        break;
+                    }
+                }
+                
+                
+                
 
 
                 for(Product copy : productStorage)
