@@ -463,6 +463,101 @@ class SellerClass
 }
 
 
+class BuyerPortal
+{
+    private static Scanner scanner = new Scanner(System.in);
+    public static List<BuyerSignUp> buyerAccountStorage = new ArrayList<>();
+    
+    
+    public static void buyerLogIn()
+    {
+        boolean isShopRunning = true;
+        boolean isBuyerLogIn = true;
+        boolean isBuyerProgramRunning = true;
+        
+        while(isBuyerLogIn)
+        {
+            System.out.print("Enter your ID");
+            int buyerID = scanner.nextInt();
+        
+            System.out.print("Enter your password: ");
+            String buyerPassword = scanner.nextLine();
+        
+            for(BuyerSignUp copy : buyerAccountStorage)
+            {
+                if(buyerID == copy.getId() && buyerPassword == copy.getPassword())
+                {
+                    System.out.println("");
+                    System.out.println("Log in successfully!");
+                    System.out.println("");
+                    
+                    do
+                    {
+                        System.out.println("Welcome buyer!");
+                        System.out.println("[1] Shop");
+                        System.out.println("[2] Show cart");
+                        System.out.println("[3] Remove cart");
+                        System.out.println("[4] Log out");
+                        
+                        System.out.print("Enter your choice: ");
+                        int choice = scanner.nextInt();
+                        scanner.nextLine();
+                        
+                        switch(choice)
+                        {
+                            case 1:
+                                while(isShopRunning)
+                                {
+                                    System.out.println("[1] Show products");
+                                    System.out.println("[2] Add to cart");
+                                    System.out.println("[3] Buy product");
+                                    System.out.println("[4] Exit");
+                                    
+                                    System.out.print("Enter your choice: ");
+                                    int shopChoice = scanner.nextInt();
+                                    scanner.nextLine();
+                                    
+                                    switch(shopChoice)
+                                    {
+                                        case 1:
+                                            BuyerClass.ShopProduct.showSellerProducts();
+                                            break;
+                                            
+                                        case 2:
+                                            BuyerClass.ShopProduct.addToCart();
+                                            break;
+                                            
+                                        case 3:
+                                            BuyerClass.ShopProduct.buyProduct();
+                                            break;
+                                            
+                                        case 4:
+                                            isShopRunning = false;
+                                            break;
+                                            
+                                        default:
+                                            System.out.println("Invalid Choice, try again!");
+                                            break;                                                                                                                                                            
+                                    }
+                                }
+                        }                              
+                    }while(isBuyerProgramRunning);
+                    
+                    
+                    return;
+                }                      
+            }
+        
+            System.out.println("Invalid credentials, try again");
+        }                    
+    }
+    
+}
+
+
+
+
+
 //MAIN CLASS HERE
 
 
@@ -515,6 +610,8 @@ public class OnlineShoppingSystem
                         switch(choice)
                         {
                             case 1:
+                                BuyerPortal.buyerLogIn();
+                                
                                 
                                                              
 
@@ -543,7 +640,7 @@ public class OnlineShoppingSystem
 
                 case 2:
                     //create account
-                    CreateAccount.createAccount();
+               
                     break;
 
                 case 3:
