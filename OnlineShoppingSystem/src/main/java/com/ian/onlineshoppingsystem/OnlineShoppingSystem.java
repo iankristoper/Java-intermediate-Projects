@@ -2,6 +2,8 @@ package com.ian.onlineshoppingsystem;
 
 
 
+
+
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -12,25 +14,18 @@ import java.util.ArrayList;
 
 
 
-interface User 
-{
-    void shoppingMethod();
-    void showCart();
-    void removeCart();
-    void logOut();
-}
 
 
-interface Seller
-{
-    void viewProduct();
-    void addProduct();
-    void removeProduct();
-    void viewNetIncome();
-    void logOut();
-}
 
-        
+
+
+
+
+
+
+
+
+
 
 //encapsulate the data of the user and seller for signing up
 class BuyerSignUp
@@ -152,7 +147,6 @@ class Product
 
 
 
-
 //this class is for the cart of the buyer 
 class Cart
 {
@@ -178,29 +172,7 @@ class Cart
 }
 
 
-class Income
-{
-    private int id;
-    private float income;
-    
-    public Income(int id, float income)
-    {
-        this.id = id;
-        this.income = income;
-    }
-    
-    
-    //getters 
-    public int getID() {
-        return id;
-    }
-    
-    public float getIncome() {
-        return income;
-    }   
-    
-}
-    
+
 
 
 //class for creating account
@@ -248,72 +220,48 @@ class SellerAccount
     //methods to create the seller account
     public static void createSellerAccount()
     {
+        boolean isPasswordValid = true;
         String sellerPassword = null;
-        boolean isPasswordLengthOkay = true;
         
         
         System.out.print("Enter your name: ");
         String sellerName = scanner.nextLine();
         
-        do 
+        
+        while(isPasswordValid)
         {
-            boolean isPasswordMatch = true;
+            System.out.print("Enter your password: ");
+            sellerPassword = scanner.nextLine();
             
-            
-            
-            while(isPasswordMatch)
-            {
-                System.out.print("Enter your password: ");
-                sellerPassword = scanner.nextLine();
-
-                System.out.print("Confirm your password: ");
-                String confirmPassword = scanner.nextLine();
-
-                if(confirmPassword.matches(sellerPassword))
-                {
-                    System.out.println("Password Confirmed!");
-                    isPasswordMatch = false;
-                    break;
-                    
-                }
-                else
-                {
-                    System.out.println("Mismatch password, try again!");
-                }
-            }
-            
-            
-           
             if(sellerPassword.length() >= 8)
             {
-                System.out.println("Password length is valid");
-                isPasswordLengthOkay = false;
-                break;
+                System.out.print("Confirm your password: ");
+                String confirmPassword = scanner.nextLine();
                 
-            }
-            else
-            {
-                System.out.println("Invalid password length make it 8 characters above");
-                isPasswordMatch = true;
-            }
-                   
-                       
-        } while(isPasswordLengthOkay);
-        
-        
-        
+                if(sellerPassword.equals(confirmPassword)) 
+                {
+                    System.out.println("Your password is valid!");
+                    isPasswordValid = false;
+                    
+                } 
+                
+                System.out.println("Password dont match!");
+                continue;
+                
+            } 
+            
+            
+            System.out.println("Your password must be at least 8 characters");
+        }
+       
         sellerID++;
-        System.out.println("Your seller id is: " + sellerID);
         
-        SellerSignUp sellerData = new SellerSignUp(sellerName, sellerPassword, sellerID, )
+        SellerSignUp seller = new SellerSignUp(sellerName, sellerPassword, sellerID);
+        sellerAccountStorage.add(seller);
         
+        System.out.println("Account registered successfully!");
         
-    }
-    
-    
-    
-    
-    
+    } 
     
 }
 
@@ -398,9 +346,7 @@ class BuyerClass
                 }
                 
                 
-                
-
-
+                 
                 for(Product copy : productStorage)
                 {
                     if(productID == copy.getID())
@@ -415,10 +361,7 @@ class BuyerClass
             }
                   
         }
-        
-        
-        
-        
+                             
     }
 }
 
@@ -429,9 +372,9 @@ class SellerClass
 {
     private static final Scanner scanner = new Scanner(System.in);
     public static List<Product> productStorage = new ArrayList<>();
-    public static List<Income> incomeStorage = new ArrayList<>();
+    public static List<SellerSignUp> sellerAccountStorage = new ArrayList<>();
     public static int productID = 9000;
-    public static float sellerIncome = 0;
+
     
     
     
@@ -505,7 +448,16 @@ class SellerClass
     //this method is for viewing the income of the seller
     public static void incomeProduct()
     {
+        System.out.print("Enter your seller ID: ");
+        int sellerID = scanner.nextInt();
         
+        for(SellerSignUp copy : sellerAccountStorage)
+        {
+            if(copy.getID() == sellerID)
+            {
+                System.out.println("Your Income balance is: " + copy.getID());
+            }
+        }
     }
     
 }
@@ -563,65 +515,8 @@ public class OnlineShoppingSystem
                         switch(choice)
                         {
                             case 1:
-                                System.out.print("Enter your ID: ");
-                                int userID = scanner.nextInt();
-                                scanner.nextLine();  //consumes newline
-
-                                System.out.print("Enter name: ");
-                                String userName = scanner.nextLine();
-
-                                System.out.print("Enter password: ");
-                                String userPassword = scanner.nextLine();
                                 
-                                for(SignUp copy : CreateAccount.accountStorage)
-                                {
-                                    if(userID == copy.getId() && userPassword == copy.getPassword())
-                                    {
-                                        while(isUserProgramRunning)
-                                        {
-                                            System.out.println("Welcome to IShop, Enjoy your shopping!");
-                                            System.out.println("[1] Shop");
-                                            System.out.println("[2] Show the cart");
-                                            System.out.println("[3] Remove to cart");
-                                            System.out.println("[4] Log out");
-
-                                            System.out.println("");
-                                            System.out.print("Enter your choices: ");
-                                            int userChoice = scanner.nextInt();
-                                            
-                                            switch(userChoice)
-                                            {
-                                                case 1:
-                                                    BuyerClass.ShopProduct.buyProduct();
-                                                    break;                                                                             
-
-                                                case 2:
-                                                    BuyerClass.ShopProduct.addToCart();
-                                                    break;
-
-                                                case 3:
-                                                    BuyerClass.ShopProduct.
-                                                    break;
-
-                                                case 4:
-                                                    //log out
-                                                    isUserProgramRunning = false;
-                                                    break;
-
-                                                default:
-                                                    System.out.println("Invalid choice, try again.");
-                                                    break;
-                                            }
-                                        }
-                                                
-                                    }
-                                    else 
-                                    {
-                                        System.out.println("Incorrect credentials, try again");
-                                    }
-                                }
-                            
-                                break;
+                                                             
 
                             case 2:
                                 //view product status
@@ -659,152 +554,8 @@ public class OnlineShoppingSystem
                 default:
                     System.out.println("Invalid choice, try again.");
                     break;
-            }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            if(signing == 1)
-            {
-                System.out.println("Hi! Welcome to IShop!");
-                System.out.println("");
-                System.out.println("[1] User as buyer");
-                System.out.println("[2] User as seller");
-                System.out.println("[3] Back");
-                
-                System.out.println("");
-                System.out.print("Enter your choice: ");
-                int choice = scanner.nextInt();
-                scanner.nextLine();  //consume newline
-                
-                if(choice == 1)
-                {
-                    System.out.print("Enter your ID: ");
-                    int userID = scanner.nextInt();
-                    scanner.nextLine();  //consumes newline
-                    
-                    System.out.print("Enter name: ");
-                    String userName = scanner.nextLine();
-                    
-                    System.out.print("Enter password: ");
-                    String userPassword = scanner.nextLine();
-                    
-                    if(userPassword == PASSWORD && userID == ID)
-                    {
-                        while(isUserProgramRunning)
-                        {
-                            System.out.println("Welcome to IShop, Enjoy your shopping!");
-                            System.out.println("[1] Shop");
-                            System.out.println("[2] Show the cart");
-                            System.out.println("[3] Remove to cart");
-                            System.out.println("[4] Log out");
+            }                                                                         
 
-                            System.out.println("");
-                            System.out.print("Enter your choices: ");
-                            int userChoice = scanner.nextInt();
-
-                            switch(userChoice)
-                            {
-                                case 1:
-                                    break;
-
-                                case 2:
-                                    break;
-
-                                case 3:
-                                    break;
-
-                                case 4:
-                                    isUserProgramRunning = false;
-                                    break;
-
-                                default:
-                                    System.out.println("Invalid Choice, try again");
-                                    break;
-                            }
-                        }
-                    }
-                }
-                else if(choice == 2)
-                {
-                    while(isSellerProgramRunning)
-                    {
-                        System.out.println("Welcome to IShop, Enjoy your selling!");
-                        System.out.println("[1] View product status");
-                        System.out.println("[2] Add product");
-                        System.out.println("[3] Remove product");
-                        System.out.println("[4] View net income");
-                        System.out.println("[5] Log out");
-                        
-                        System.out.println("");
-                        System.out.print("Enter your choice: ");
-                        int sellerChoice = scanner.nextInt();
-                        scanner.nextLine();  //consumer newline
-                        
-                        switch(sellerChoice)
-                        {
-                            case 1:
-                                break;
-                                
-                            case 2:
-                                break;
-                                
-                            case 3:
-                                break;
-                                
-                            case 4:
-                                break;
-                                
-                            case 5:
-                                isSellerProgramRunning = false;                               
-                                break;
-                                
-                            default:
-                                System.out.println("Invalid choice, try again");
-                                break;
-                        }
-                    }
-                }
-                else if(choice == 3)
-                {
-                    
-                }                     
-            } 
-            else if(signing == 2)
-            {
-                
-               
-            }
-            else if(signing == 3)
-            {
-                System.out.println("Thank you for using IShop!");
-                isMainProgramRunning = false;               
-            }
         }
     }
 }
