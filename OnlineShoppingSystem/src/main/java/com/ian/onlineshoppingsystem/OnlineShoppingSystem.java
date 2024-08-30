@@ -410,10 +410,17 @@ class SellerClass
         }
         
         
+        System.out.print("Enter your product ID: ");
+        int productStatusID = scanner.nextInt();
+        
         for(Product copy : productStorage)
         {
-            System.out.println(copy);
-        }            
+            if(productStatusID == copy.getID())
+            {
+                System.out.println(copy);
+                return;
+            }
+        }
         
     }
     
@@ -540,6 +547,23 @@ class BuyerPortal
                                             break;                                                                                                                                                            
                                     }
                                 }
+                                
+                            case 2:
+                                //show cart
+                                break;
+                                
+                            case 3:
+                                //remove cart 
+                                break;
+                                
+                            case 4:
+                                //exit
+                                isBuyerProgramRunning = false;
+                                break;
+                                
+                            default:
+                                System.out.println("Invalid choice, try again");
+                                break;
                         }                              
                     }while(isBuyerProgramRunning);
                     
@@ -556,7 +580,136 @@ class BuyerPortal
 
 
 
+class SellerPortal
+{
+    private static Scanner scanner = new Scanner(System.in);
+    public static List<SellerSignUp> sellerAccountStorage = new ArrayList<>();
+    
+    
+    public static void sellerLogIn()
+    {
+        boolean isSellerProgramRunning = true;
+        boolean isSellerLogInRunning = true;
+        
+        
+        while(isSellerLogInRunning)
+        {
+            System.out.print("Enter your ID: ");
+            int sellerID = scanner.nextInt();
+            
+            System.out.print("Enter your password: ");
+            String sellerPassword = scanner.nextLine();
+            
+            for(SellerSignUp copy : sellerAccountStorage)
+            {
+                if(sellerID == copy.getID() && sellerPassword == copy.getPassword())
+                {
+                    System.out.println("");
+                    System.out.println("Log in successfully!");
+                    System.out.println("");
+                    
+                    do
+                    {
+                        System.out.println("Welcome seller!");
+                        System.out.println("[1] View product status");
+                        System.out.println("[2] Add product");
+                        System.out.println("[3] Remove product");
+                        System.out.println("[4] View net income");
+                        
+                        System.out.print("Enter your choice: ");
+                        int sellerChoice = scanner.nextInt();
+                        scanner.nextLine();
+                        
+                        switch(sellerChoice)
+                        {
+                            case 1:
+                                SellerClass.viewProduct();
+                                break;
+                                
+                            case 2:
+                                SellerClass.addProduct();
+                                break;
+                                
+                            case 3:
+                                SellerClass.removeProduct();
+                                break;
+                                
+                            case 4:
+                                SellerClass.incomeProduct();
+                                break;
+                                
+                            case 5:
+                                isSellerProgramRunning = false;
+                                break;
+                                
+                            default:
+                                System.out.println("Invalid choice, please try again");
+                                break;
+                                                                                                                                                                                           
+                        }                                            
+                    }while(isSellerProgramRunning);
+                    
+                    return;
+                }
+            }
+            
+            System.out.println("Invalid credentials, try again");
+        }
+    }    
+}
 
+
+
+class CreateAccount
+{
+    private static Scanner scanner = new Scanner(System.in);
+    
+    public static void choiceAccount()
+    {
+        boolean isAccountRunning = true;
+        
+        while(isAccountRunning)
+        {
+            System.out.println("Select mode of account");
+            System.out.println("[1] Buyer");
+            System.out.println("[2] Seller");
+            System.out.println("[3] Exit");
+            
+            System.out.print("Select choice: ");
+            int accountChoice = scanner.nextInt();
+            scanner.nextLine();
+            
+            switch(accountChoice)
+            {
+                case 1:
+                    BuyerAccount.createBuyerAccount();
+                    break;
+                    
+                case 2:
+                    SellerAccount.createSellerAccount();
+                    break;
+                    
+                case 3:
+                    isAccountRunning = false;
+                    break;
+                    
+                default:
+                    System.out.println("Invalid choice, try again");
+                    break;
+            }
+        }
+            
+    }
+}
+
+
+
+
+        
+        
+        
+        
+        
 
 //MAIN CLASS HERE
 
@@ -568,9 +721,6 @@ public class OnlineShoppingSystem
     {
         Scanner scanner = new Scanner(System.in);
         boolean isMainProgramRunning = true;
-        boolean isUserProgramRunning = true;
-        boolean isSellerProgramRunning = true;
-        boolean isSubProgramRunning = true;
         boolean isLogInRunning = true;
         
         
@@ -611,22 +761,14 @@ public class OnlineShoppingSystem
                         {
                             case 1:
                                 BuyerPortal.buyerLogIn();
-                                
-                                
-                                                             
-
+                                break;
+                                                                                                                         
                             case 2:
-                                //view product status
-                                //add product
-                                    //name
-                                    //type 
-                                    //price
-                                //remove product
-                                //view net income
-                                //logout
+                                SellerPortal.sellerLogIn();
                                 break;
 
                             case 3:
+                                isLogInRunning = false;
                                 break;
 
                             default:
@@ -640,12 +782,12 @@ public class OnlineShoppingSystem
 
                 case 2:
                     //create account
-               
+                    CreateAccount.choiceAccount();            
                     break;
 
                 case 3:
                     //exit the program
-                    isSubProgramRunning = false;
+                    isMainProgramRunning = false;
                     break;
 
                 default:
@@ -656,3 +798,47 @@ public class OnlineShoppingSystem
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
